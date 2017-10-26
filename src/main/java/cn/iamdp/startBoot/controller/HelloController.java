@@ -25,8 +25,8 @@ public class HelloController {
 	
 	@GetMapping(path="/")
 	public String index(Model model) {
-		List<User> userList=jpaUserDao.findAll();
-		model.addAttribute("userList",userList);
+//		List<User> userList=jpaUserDao.findAll();
+//		model.addAttribute("userList",userList);
 		return "index";
 	}
 }

@@ -7,6 +7,7 @@
 	<artifactId>startBoot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
+	<!-- <packaging>war</packaging> -->
 
 	<name>startBoot</name>
 	<description>Demo project for Spring Boot</description>
@@ -31,7 +32,21 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<!-- 排除spring-boot-starter-web中提供内嵌的tomcat -->
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
+		<!-- 提供一个本地运行的web容器，但是在打包时不会被打包 -->
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-tomcat</artifactId>
+   			<scope>provided</scope>	
+		</dependency>
+
 
 		<!-- 测试 -->
 		<dependency>
@@ -46,6 +61,12 @@
         	<artifactId>spring-boot-starter-data-jpa</artifactId>
    		</dependency>
    		
+   		<!--  -->
+  		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+   		
    		<!-- mysql驱动 -->
 	    <dependency>
 	        <groupId>mysql</groupId>
@@ -58,52 +79,55 @@
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		
-				<!-- 引入aop功能 -->
-<!-- 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
-		</dependency>
 		
-		mybatis
-		<dependency>
-			<groupId>org.mybatis.spring.boot</groupId>
-			<artifactId>mybatis-spring-boot-starter</artifactId>
-			<version>1.3.0</version>
-		</dependency>
-		
-		校验
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
-		
-		redis
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-		
-		
-	 -->
-	 
+	 	<!-- 支持热部署 -->
 		<dependency>
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-devtools</artifactId>
 	        <optional>true</optional>
 	   	</dependency>
+	   	
+	   	<!-- actuator:致动器 这模块提供spring boot项目的生产级别监控服务
+	   		会提供一系列的端点来提供项目在运行中一些数据，信息，健康状态，配置项等，
+	   		我们只需访问它提供的相应的url就能看见这些项目信息。
+	   		当然我们可以开启或者关闭这个端点监控，修改它们默认的名称，访问url等
+	   	-->
+	   	<dependency>
+	   		<groupId>org.springframework.boot</groupId>
+	   		<artifactId>spring-boot-starter-actuator</artifactId>
+	   	</dependency>
+	   	
+	 	<!-- 
+	 		通过这个插件我们可以汇总端点信息。
+	 	 -->  
+	   	<dependency>
+	   		<groupId>org.springframework.boot</groupId>
+	   		<artifactId>spring-boot-starter-hateoas</artifactId>
+	   	</dependency>
+	   	<!-- 
+	   		图形化工具，更好的查看端点信息
+	   	 -->
+ 		<dependency>
+	   		<groupId>org.webjars</groupId>
+	   		<artifactId>hal-browser</artifactId>
+		</dependency>
+		
+		
 	</dependencies>
-
+	
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				 <configuration>
+				 	<!-- 支持热部署 -->
                 	<fork>true</fork>
+                	<!-- 使用maven打包的时候可以指定war包的名字 -->
+                	<!-- <warName>startBoot</warName>  -->
             	</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 
 </project>
