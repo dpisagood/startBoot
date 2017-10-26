@@ -122,5 +122,12 @@ public class User implements Serializable{
 	public void setCompany(String company) {
 		this.company = company;
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", passWord=" + passWord + ", email=" + email
+				+ ", nickName=" + nickName + ", company=" + company + ", createTime=" + createTime + ", updateTime="
+				+ updateTime + "]";
+	}
 	
 }
