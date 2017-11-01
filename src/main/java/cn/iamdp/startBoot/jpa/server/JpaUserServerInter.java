@@ -2,6 +2,8 @@ package cn.iamdp.startBoot.jpa.server;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
+
 import cn.iamdp.startBoot.jpa.entity.User;
 /**
  * user类服务层接口
@@ -9,6 +11,7 @@ import cn.iamdp.startBoot.jpa.entity.User;
  *
  */
 public interface JpaUserServerInter {
+	
     public List<User> getUserList();
 
     public User findUserById(String id);

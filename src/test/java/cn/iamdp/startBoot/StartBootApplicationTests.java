@@ -14,6 +14,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import cn.iamdp.startBoot.jpa.dao.JpaUserDao;
 import cn.iamdp.startBoot.jpa.entity.User;
+import cn.iamdp.startBoot.mybatis.dao.StudentDao;
+import cn.iamdp.startBoot.mybatis.pojo.Student;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -80,5 +82,20 @@ public class StartBootApplicationTests {
 	    	ValueOperations<String, User> valueop=redisTemplate.opsForValue();
 	    	User user=valueop.get("iamdp");
 	    	System.out.println(user);
+	    }
+	    
+	    
+	    
+	    @Autowired
+	    private StudentDao sdao;
+	    
+	    @Test
+	    public void addStudent() {
+	    	Student student=new Student();
+	    	student.setName("丁鹏");
+	    	student.setAge(23);
+	    	student.setSex("男");
+	    	student.setStudentid(2014014116);
+	    	sdao.insert(student);
 	    }
 }

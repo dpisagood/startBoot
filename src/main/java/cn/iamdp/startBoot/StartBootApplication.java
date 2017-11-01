@@ -1,5 +1,6 @@
 package cn.iamdp.startBoot;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -9,6 +10,8 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
  * spring boot启动方式
  */
 @SpringBootApplication
+//mapper接口扫描
+@MapperScan("cn.iamdp.startBoot.mybatis.dao")
 public class StartBootApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(StartBootApplication.class, args);

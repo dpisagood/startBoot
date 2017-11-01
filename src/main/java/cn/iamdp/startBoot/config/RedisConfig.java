@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -27,9 +28,9 @@ public class RedisConfig {
 		 * @return
 		 */
 	  	@Bean  
-	    public CacheManager cacheManager(RedisTemplate<?, ?> redisTemplate) {  
+	    public CacheManager cacheManager(RedisTemplate<String, String> redisTemplate) {  
 	        RedisCacheManager manager = new RedisCacheManager(redisTemplate); 
-//	        manager.setDefaultExpiration(0);
+	        manager.setDefaultExpiration(60);
 	        return manager;  
 	    }  
 	  
@@ -40,7 +41,7 @@ public class RedisConfig {
 	     * @return
 	     */
 		@Bean
-		public KeyGenerator keyGenerator() {
+		public KeyGenerator mykeyGenerator() {
 	        return new KeyGenerator() {
 	            @Override
 	            public Object generate(Object target, Method method, Object... params) {
@@ -61,15 +62,22 @@ public class RedisConfig {
 	  	 * @param connectionFactory
 	  	 * @return
 	  	 */
-	    @Bean  
-	    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory connectionFactory) {  
-	        RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();  
-	        template.setConnectionFactory(connectionFactory);  
-	        this.setMySerializer(template);  
-	        template.afterPropertiesSet();  
-	        return template;  
-	    }  
-	  
+//	    @Bean  
+//	    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory connectionFactory) {  
+//	        RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();  
+//	        template.setConnectionFactory(connectionFactory);  
+//	        this.setMySerializer(template);  
+//	        template.afterPropertiesSet();  
+//	        return template;  
+//	    }  
+		
+	    @Bean
+	    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
+	        StringRedisTemplate template = new StringRedisTemplate(factory);
+	        this.setMySerializer(template);
+	        return template;
+	    }
+
 		
 		
 		
@@ -77,13 +85,21 @@ public class RedisConfig {
 	     * 设置序列化方法 
 	     */  
 	    private void setMySerializer(RedisTemplate<?, ?> template) {  
-	        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(  
-	                Object.class);  
-	        ObjectMapper om = new ObjectMapper();  
-	        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);  
-	        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);  
-	        jackson2JsonRedisSerializer.setObjectMapper(om);  
-	        template.setKeySerializer(template.getStringSerializer());//设置key的序列化方式为spring boot redis模板里面自带的字符串序列化方式 
-	        template.setValueSerializer(jackson2JsonRedisSerializer);//设置value的序列方式为jackson提供的序列方式。
+//	        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(  
+//	                Object.class);  
+//	        ObjectMapper om = new ObjectMapper();  
+//	        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);  
+//	        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);  
+//	        jackson2JsonRedisSerializer.setObjectMapper(om);  
+//	        template.setKeySerializer(template.getStringSerializer());//设置key的序列化方式为spring boot redis模板里面自带的字符串序列化方式 
+//	        template.setValueSerializer(jackson2JsonRedisSerializer);//设置value的序列方式为jackson提供的序列方式。
+    		Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<Object>(Object.class);  
+	        ObjectMapper om = new ObjectMapper();
+	        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+	        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+	        jackson2JsonRedisSerializer.setObjectMapper(om);
+	        template.setValueSerializer(jackson2JsonRedisSerializer);
+	        template.afterPropertiesSet();
 	    }
+	    	
 }
