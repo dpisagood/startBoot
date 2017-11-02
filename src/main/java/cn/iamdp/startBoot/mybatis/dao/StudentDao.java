@@ -1,30 +1,18 @@
 package cn.iamdp.startBoot.mybatis.dao;
 
 import cn.iamdp.startBoot.mybatis.pojo.Student;
-import cn.iamdp.startBoot.mybatis.pojo.StudentExample;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface StudentDao {
-    long countByExample(StudentExample example);
-
-    int deleteByExample(StudentExample example);
+	
 
     int deleteByPrimaryKey(Integer id);
 
-    int insert(Student record);
+    int save(Student record);
 
-    int insertSelective(Student record);
-
-    List<Student> selectByExample(StudentExample example);
+    List<Student> studentList();
 
     Student selectByPrimaryKey(Integer id);
-
-    int updateByExampleSelective(@Param("record") Student record, @Param("example") StudentExample example);
-
-    int updateByExample(@Param("record") Student record, @Param("example") StudentExample example);
-
-    int updateByPrimaryKeySelective(Student record);
 
     int updateByPrimaryKey(Student record);
 }

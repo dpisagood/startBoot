@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>userList</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"></link>
+</head>
+<body class="container">
+<br/>
+<h1>用户列表</h1>
+<br/><br/>
+<div class="with:80%">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th># id</th>
+            <th>Name</th>
+            <th>age</th>
+            <th>sex</th>
+            <th>studentId</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr  th:each="student : ${students}">
+            <th scope="row" th:text="${student.id}">1</th>
+            <td th:text="${student.name}">neo</td>
+            <td th:text="${student.age}">Otto</td>
+            <td th:text="${student.sex}">0000</td>
+            <td th:text="${user.studentid}">0000</td>
+            <td><a th:href="@{/student/toEdit(id=${student.id})}">edit</a></td>
+            <td><a th:href="@{/student/delete(id=${student.id})}">delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="form-group">
+    <div class="col-sm-2 control-label">
+        <a href="/student/toAdd" th:href="@{/student/toAdd}" class="btn btn-info">add</a>
+    </div>
+</div>
+
+</body>
+</html>

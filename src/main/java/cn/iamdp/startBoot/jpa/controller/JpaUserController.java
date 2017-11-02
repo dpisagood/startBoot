@@ -11,7 +11,7 @@ import cn.iamdp.startBoot.jpa.server.JpaUserServerInter;
 @Controller
 public class JpaUserController {
 
-	@Resource()
+	@Resource
 	private JpaUserServerInter userServer;
 	
 	
