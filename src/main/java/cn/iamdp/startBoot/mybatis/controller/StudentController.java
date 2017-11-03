@@ -1,11 +1,15 @@
 package cn.iamdp.startBoot.mybatis.controller;
 
 import java.util.List;
+
 import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import cn.iamdp.startBoot.mybatis.pojo.Student;
 import cn.iamdp.startBoot.mybatis.service.StudentService;
 
@@ -18,7 +22,7 @@ public class StudentController {
 	@GetMapping(path="/mybatis/list")
 	public String studentList(Model model) {
 		List<Student> studentList=sService.getStudentList();
-		model.addAttribute("Students", studentList);
+		model.addAttribute("students", studentList);
 		return "student/list";
 	}
 
@@ -29,9 +33,10 @@ public class StudentController {
         return "student/studentAdd";
     }
 
-    @RequestMapping("/mybatis/add")
+    @PostMapping("/mybatis/add")
     public String add(Student student) {
-        sService.save(student);
+    	int key=sService.save(student);
+        System.out.println("+++++++++++++++++++++++++"+key+"++++++++++++++++++++++++++++");
         return "redirect:/mybatis/list";
     }
 

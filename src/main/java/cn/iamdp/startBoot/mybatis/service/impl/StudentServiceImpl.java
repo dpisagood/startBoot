@@ -7,6 +7,11 @@ import cn.iamdp.startBoot.mybatis.dao.StudentDao;
 import cn.iamdp.startBoot.mybatis.pojo.Student;
 import cn.iamdp.startBoot.mybatis.service.StudentService;
 
+/**
+ * 服务层
+ * @author DP
+ *
+ */
 @Service
 public class StudentServiceImpl implements StudentService{
 
@@ -15,32 +20,27 @@ public class StudentServiceImpl implements StudentService{
 
 	@Override
 	public List<Student> getStudentList() {
-		// TODO Auto-generated method stub
-		return null;
+		return sdao.studentList();
 	}
 
 	@Override
 	public Student findStudentById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return sdao.selectByPrimaryKey(id);
 	}
 
 	@Override
-	public int save(Student user) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int save(Student student) {
+		return sdao.save(student);//返回自增长的主键
 	}
 
 	@Override
-	public int edit(Student user) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int edit(Student student) {
+		return sdao.updateByPrimaryKey(student);
 	}
 
 	@Override
 	public int delete(Integer id) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sdao.deleteByPrimaryKey(id);
 	}
 	
 }
