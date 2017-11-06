@@ -32,6 +32,12 @@
         </tr>
         </tbody>
     </table>
+ <!--    <form th:action="@{/mybatis/list}">
+    	<input type="" value="" name=""  >
+    </form> -->
+    <a id="pre" th:if="${!pageInfo.isFirstPage}" th:href="@{/mybatis/list(pageNum=${pageInfo.prePage})}">上一页</a>
+    <span th:text="${pageInfo.pageNum}">0</span>
+    <a id="next" th:if="${!pageInfo.isLastPage}" th:href="@{/mybatis/list(pageNum=${pageInfo.nextPage})}">下一页</a>
 </div>
 <div class="form-group">
     <div class="col-sm-2 control-label">
@@ -40,4 +46,4 @@
 </div>
 
 </body>
-</html>
+</html> 

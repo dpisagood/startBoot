@@ -9,6 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import cn.iamdp.startBoot.mybatis.pojo.Student;
 import cn.iamdp.startBoot.mybatis.service.StudentService;
@@ -19,10 +23,19 @@ public class StudentController {
 	@Resource
 	private StudentService sService;
 	
+	
+	
+   
 	@GetMapping(path="/mybatis/list")
-	public String studentList(Model model) {
+	public String studentList(Model model, 
+			@RequestParam(value = "pageNum", required = false, defaultValue="1") Integer pageNum ,
+			@RequestParam(value = "pageSize", required = false, defaultValue="2") Integer pageSize
+			) {
+		PageHelper.startPage(pageNum, pageSize);
 		List<Student> studentList=sService.getStudentList();
+		PageInfo<Student> pageInfo=new PageInfo<Student>(studentList);
 		model.addAttribute("students", studentList);
+		model.addAttribute("pageInfo",pageInfo);
 		return "student/list";
 	}
 

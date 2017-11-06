@@ -29,7 +29,7 @@ public class Student implements Serializable {
     /**
      * 学号
      */
-    private Integer studentid;
+    private String studentid;
 
     private static final long serialVersionUID = 1L;
 
@@ -65,11 +65,12 @@ public class Student implements Serializable {
         this.sex = sex;
     }
 
-    public Integer getStudentid() {
-        return studentid;
-    }
+	public String getStudentid() {
+		return studentid;
+	}
 
-    public void setStudentid(Integer studentid) {
-        this.studentid = studentid;
-    }
+	public void setStudentid(String studentid) {
+		this.studentid = studentid;
+	}
+
 }

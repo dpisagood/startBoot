@@ -95,7 +95,7 @@ public class StartBootApplicationTests {
 	    	student.setName("丁鹏");
 	    	student.setAge(23);
 	    	student.setSex("男");
-	    	student.setStudentid(2014014116);
+	    	student.setStudentid("2014014116");
 	    	sdao.save(student);
 //	    	sdao.insert(student);
 	    }

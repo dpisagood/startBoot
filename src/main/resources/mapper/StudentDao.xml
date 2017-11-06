@@ -6,11 +6,11 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="age" jdbcType="INTEGER" property="age" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
-    <result column="studentId" jdbcType="INTEGER" property="studentid" />
+    <result column="studentId" jdbcType="VARCHAR" property="studentid" />
   </resultMap>
   
   <select id="studentList" resultType="cn.iamdp.startBoot.mybatis.pojo.Student">
-  	select a.id,a.name,a.age,a.sex,a.studentId from student a 
+  	select a.id,a.name,a.age,a.sex,a.studentId from student a order by a.id 
   </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Integer">
